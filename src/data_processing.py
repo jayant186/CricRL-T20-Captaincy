@@ -54,10 +54,7 @@ def parse_match(path):
     # Second pass: build the state before and after every delivery.
     for innings_no, innings in enumerate(innings_list, start=1):
         batting_team = innings.get("team")
-        bowling_team = next(
-            (team for team in teams if team != batting_team),
-            None,
-        )
+        bowling_team = next( (team for team in teams if team != batting_team), None,)
 
         target = (
             innings_totals.get(1, 0) + 1
@@ -244,9 +241,7 @@ def main():
 
     for path in files:
         try:
-            deliveries, innings, bat_stats, bowl_stats, teams = (
-                parse_match(path)
-            )
+            deliveries, innings, bat_stats, bowl_stats, teams = (parse_match(path))
 
             all_deliveries.extend(deliveries)
             all_innings.extend(innings)
@@ -280,21 +275,11 @@ def main():
         except (ValueError, KeyError, TypeError) as exc:
             errors.append((path.name, str(exc)))
 
-    pd.DataFrame(all_deliveries).to_csv(
-        OUTPUT_DIR / "deliveries.csv", index=False
-    )
-    pd.DataFrame(all_innings).to_csv(
-        OUTPUT_DIR / "match_summary.csv", index=False
-    )
-    pd.DataFrame(batting_stats.values()).to_csv(
-        OUTPUT_DIR / "player_batting_stats.csv", index=False
-    )
-    pd.DataFrame(bowling_stats.values()).to_csv(
-        OUTPUT_DIR / "player_bowling_stats.csv", index=False
-    )
-    pd.DataFrame(team_stats.values()).to_csv(
-        OUTPUT_DIR / "team_stats.csv", index=False
-    )
+    pd.DataFrame(all_deliveries).to_csv(OUTPUT_DIR/"deliveries.csv", index=False)
+    pd.DataFrame(all_innings).to_csv(OUTPUT_DIR / "match_summary.csv", index=False)
+    pd.DataFrame(batting_stats.values()).to_csv(OUTPUT_DIR /"player_batting_stats.csv", index=False)
+    pd.DataFrame(bowling_stats.values()).to_csv(OUTPUT_DIR / "player_bowling_stats.csv", index=False)
+    pd.DataFrame(team_stats.values()).to_csv(OUTPUT_DIR/ "team_stats.csv", index=False)
 
     print(f"JSON files discovered: {len(files)}")
     print(f"Delivery rows: {len(all_deliveries)}")
