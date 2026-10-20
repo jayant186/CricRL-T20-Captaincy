@@ -1,5 +1,6 @@
 # Virtual environment
 .venv/
 
-# Local IPL dataset
-ipl_json/
+# Raw and processed datasets
+data/raw/
+data/processed/
