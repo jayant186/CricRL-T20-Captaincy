@@ -1,69 +1,4 @@
-"""
-src/simulator.py — Milestone 3: T20 Second-Innings Chase Simulator
-===================================================================
 
-Purpose
--------
-Simulate a T20 second-innings chase ball-by-ball. The simulator maintains
-a full match state, calls the outcome model on each delivery, and enforces
-the rules of cricket (120-ball limit, 10-wicket limit, target-reached
-termination).
-
-Design principles
------------------
-1. **Rules are hard-coded; probabilities are data-driven.**
-   - Cricket rules (innings ends at 10 wickets, wides don't consume a legal
-     ball, etc.) are implemented as deterministic logic in the simulator.
-   - Outcome probabilities (P(six | powerplay, 7 wickets in hand)) are learned
-     by OutcomeModel from historical data.
-   - This separation makes each layer independently testable.
-
-2. **Stochastic but reproducible.**
-   The simulator accepts a `random_seed` parameter. Passing the same seed
-   produces the same sequence of delivery outcomes, enabling reproducible
-   training runs and unit tests.
-
-3. **Stateless between episodes.**
-   `reset()` reinitialises all counters. After reset, `step()` can be called
-   up to 120 times (plus unlimited extras) without any shared state leaking
-   between episodes.
-
-State after every step()
-------------------------
-    score            : int    — total runs this innings
-    wickets          : int    — wickets fallen (0–10)
-    legal_balls      : int    — legal balls bowled (0–120)
-    is_done          : bool   — True if innings has ended
-    won              : bool | None — True=win, False=loss, None=in progress
-    last_outcome     : DeliveryOutcome | None
-
-Termination conditions (checked after EACH delivery)
-----------------------------------------------------
-1. wickets == 10                → all out, won=False (assuming score < target)
-2. score >= target              → target reached, won=True
-3. legal_balls == 120           → 20 overs complete, won=(score >= target)
-
-Condition 2 is checked BEFORE condition 1 because on a no-ball the batter
-can reach the target even if a run-out occurs on the same delivery — but we
-model wickets as impossible on wides/no-balls (documented limitation).
-
-Usage
------
-    from src.simulator import T20Simulator
-    from src.outcome_model import OutcomeModel
-    import pandas as pd
-
-    inn2 = pd.read_csv('data/processed/innings2_chase.csv', low_memory=False)
-    model = OutcomeModel().fit(inn2)
-
-    sim = T20Simulator(outcome_model=model, random_seed=42)
-    obs = sim.reset(target=165, initial_wickets=0)
-
-    while not sim.is_done:
-        obs, reward, done, info = sim.step(aggression=1)  # Balanced
-
-    print(f"Score: {sim.score}/{sim.wickets}  Won: {sim.won}")
-"""
 
 from __future__ import annotations
 
@@ -93,12 +28,7 @@ MIDDLE_END_OVER    = 14  # overs 6–14 (legal balls 36–89)
 
 @dataclass
 class BallRecord:
-    """
-    Record of a single ball for post-episode analysis.
-
-    Not used by the core simulation loop, but appended to `history`
-    so that callers can audit the full innings ball-by-ball.
-    """
+   
     ball_number: int          # 1-indexed across all deliveries (including extras)
     legal_ball_number: int    # 1-indexed legal balls only
     phase: str
@@ -116,31 +46,6 @@ class BallRecord:
 # ─────────────────────────────────────────────────────────────────────────────
 
 class T20Simulator:
-    """
-    Ball-by-ball T20 second-innings chase simulator.
-
-    The simulator does NOT depend on a specific batting or bowling team.
-    It uses the outcome model's aggregate probabilities, conditioned only
-    on match state features (phase, wickets_in_hand, aggression).
-
-    Parameters
-    ----------
-    outcome_model : OutcomeModel
-        A fitted OutcomeModel instance.
-    random_seed : int, optional
-        Seed for the internal NumPy random generator.
-        Pass None for non-reproducible runs.
-
-    Attributes (read-only after reset())
-    -------------------------------------
-    score : int
-    wickets : int
-    legal_balls : int
-    is_done : bool
-    won : bool | None
-    last_outcome : DeliveryOutcome | None
-    history : list of BallRecord
-    """
 
     def __init__(
         self,
@@ -183,25 +88,7 @@ class T20Simulator:
         initial_wickets: int = 0,
         random_seed: Optional[int] = None,
     ) -> np.ndarray:
-        """
-        Initialise a new chase episode.
-
-        Parameters
-        ----------
-        target : int
-            Runs required to win (first-innings score + 1).
-        initial_wickets : int, optional
-            Wickets fallen at the start (normally 0; non-zero for testing).
-        random_seed : int or None, optional
-            If provided, re-seeds the internal RNG for this episode.
-            If None, uses the seed passed to __init__ (or continues from the
-            previous episode's RNG state if None was also passed to __init__).
-
-        Returns
-        -------
-        np.ndarray of shape (6,)
-            The initial observation vector (from state_to_observation).
-        """
+       
         if target <= 0:
             raise ValueError(f"target must be positive, got {target}")
         if not (0 <= initial_wickets <= 9):
@@ -239,25 +126,7 @@ class T20Simulator:
         bowling_aggression: int = 1,
         bowler = None,
     ) -> tuple[np.ndarray, float, bool, dict]:
-        """
-        Simulate one delivery.
-
-        Parameters
-        ----------
-        aggression : int
-            Batting aggression: 0=Conservative, 1=Balanced, 2=Aggressive.
-        bowling_aggression : int, default 1
-            Bowling tactic: 0=Defensive, 1=Balanced, 2=Attacking.
-        bowler : Bowler, optional
-            Active bowler bowling this delivery.
-
-        Returns
-        -------
-        observation : np.ndarray of shape (6,)
-        reward : float
-        done : bool
-        info : dict
-        """
+       
         if self.is_done:
             raise RuntimeError(
                 "Innings is over. Call reset() to start a new episode."
@@ -369,26 +238,7 @@ class T20Simulator:
         aggression: int = 1,
         random_seed: Optional[int] = None,
     ) -> dict:
-        """
-        Simulate a complete innings with a fixed aggression action.
-
-        Convenience method for validation runs and unit tests.
-
-        Parameters
-        ----------
-        target : int
-            Runs required to win.
-        aggression : int
-            Fixed aggression action for every delivery.
-        random_seed : int or None
-            Seed for this episode. Overrides the constructor seed.
-
-        Returns
-        -------
-        dict with keys:
-            'score', 'wickets', 'legal_balls', 'won',
-            'total_deliveries' (including extras), 'history'.
-        """
+    
         self.reset(target=target, random_seed=random_seed)
         while not self.is_done:
             self.step(aggression=aggression)
@@ -406,16 +256,6 @@ class T20Simulator:
     # ─────────────────────────────────────────────────────────────────────────
 
     def _current_phase(self) -> str:
-        """
-        Return the current phase based on legal balls bowled.
-
-        Phase is determined by the over number at the START of the delivery,
-        which is legal_balls // 6 (0-indexed).
-
-        Powerplay:  overs 0–5   (legal_balls 0–35)
-        Middle:     overs 6–14  (legal_balls 36–89)
-        Death:      overs 15–19 (legal_balls 90–119)
-        """
         over = self.legal_balls // 6
         if over <= POWERPLAY_END_OVER:
             return "powerplay"

@@ -1,71 +1,4 @@
-"""
-src/win_probability.py — Milestone 4: Win-Probability Model
-============================================================
 
-Purpose
--------
-Estimate P(batting team wins | current match state) for a T20 second-innings
-chase. This model is used as an auxiliary reward signal for the DQN agent and
-as a standalone evaluation tool for baselines.
-
-Model
------
-Logistic Regression on five features derived from the match state:
-
-    over_number          — integer 0–19 (phase of the game)
-    wickets_before       — wickets fallen so far (0–9)
-    runs_required        — runs still needed (target − score)
-    balls_remaining      — legal balls left (120 − legal_balls_before)
-    required_run_rate    — (runs_required × 6) / balls_remaining
-
-Why logistic regression?
-------------------------
-- Interpretable: coefficients show the sign and relative magnitude of each feature.
-- Fast to train (< 1 s on 111 k rows) and fast to predict (vectorised sigmoid).
-- Does not require hyperparameter tuning to produce reasonable predictions.
-- Strong baseline: Duckworth-Lewis and VJD-style models are also linear in
-  their resource variables.
-
-Feature engineering
--------------------
-We add two polynomial interaction terms:
-    rrr_x_wickets = required_run_rate × wickets_before
-        (captures "high run rate AND many wickets fallen → desperate")
-    balls_x_wickets = balls_remaining × (10 − wickets_before)
-        ("many balls AND many wickets in hand → comfortable")
-
-All features are standardised (zero mean, unit variance) before fitting.
-Standardisation is required for logistic regression gradient convergence and
-makes coefficients comparable across features with different scales.
-
-Training data
--------------
-Only training-split match IDs (from data_loader) are used. One row per delivery
-is used as a training observation, with the label being whether the batting team
-ultimately won the match. This gives the model many observations of the same
-match at different points — which is appropriate because we want to estimate
-how likely a WIN is from any given match state, not just end-of-innings states.
-
-Limitations
------------
-- No player-specific features (team or individual form not captured).
-- Assumes T20 T20 conditions are stationary across seasons 2007–2026
-  (feature means/variances shift over time; not accounted for).
-- Very high RRR rows (> 99.0 sentinel) are clipped before fitting.
-- The logistic regression is linear in the features; non-linear win-probability
-  surfaces (e.g., at a specific over with specific wickets) may not be captured.
-
-Usage
------
-    from src.win_probability import WinProbabilityModel
-    model = WinProbabilityModel()
-    model.fit(train_inn2_with_outcome)    # DataFrame must have 'batting_team_won'
-
-    prob = model.predict_proba(over_number=10, wickets_before=3,
-                               runs_required=65, balls_remaining=60,
-                               required_run_rate=6.5)
-    # Returns float in [0, 1]
-"""
 
 from __future__ import annotations
 
@@ -103,19 +36,7 @@ def _build_feature_matrix(
     balls_remaining: np.ndarray,
     required_run_rate: np.ndarray,
 ) -> np.ndarray:
-    """
-    Build the raw (un-standardised) feature matrix from the 5 base features.
-
-    Returns np.ndarray of shape (N, 7).
-    Column order (fixed):
-        0: over_number
-        1: wickets_before
-        2: runs_required
-        3: balls_remaining
-        4: required_run_rate  (clipped to RRR_CAP)
-        5: rrr_x_wickets      = required_run_rate × wickets_before
-        6: balls_x_wih        = balls_remaining × (10 - wickets_before)
-    """
+    
     rrr = np.clip(required_run_rate.astype(float), 0.0, RRR_CAP)
     wkts = wickets_before.astype(float)
     br   = balls_remaining.astype(float)
@@ -144,19 +65,7 @@ def _sigmoid(z: np.ndarray) -> np.ndarray:
 
 def _fit_logistic(X: np.ndarray, y: np.ndarray,
                   max_iter: int, lr: float, l2: float) -> np.ndarray:
-    """
-    Fit logistic regression via full-batch gradient descent with L2 regularisation.
-
-    Parameters
-    ----------
-    X : np.ndarray of shape (N, d)    — feature matrix (standardised)
-    y : np.ndarray of shape (N,)      — binary labels (0/1)
-    max_iter, lr, l2                  — training hyper-parameters
-
-    Returns
-    -------
-    w : np.ndarray of shape (d+1,)    — [intercept, w1, …, wd]
-    """
+  
     N, d = X.shape
     # Prepend bias column.
     Xb = np.hstack([np.ones((N, 1)), X])
@@ -177,13 +86,7 @@ def _fit_logistic(X: np.ndarray, y: np.ndarray,
 # ─────────────────────────────────────────────────────────────────────────────
 
 class WinProbabilityModel:
-    """
-    Logistic-regression win-probability estimator for T20 second-innings chases.
-
-    After calling fit(), use predict_proba() to obtain P(win | state) for any
-    valid match state. predict_row() accepts a delivery row dict/Series for
-    convenience.
-    """
+   
 
     def __init__(self):
         self._weights: Optional[np.ndarray] = None   # shape (8,): bias + 7 features
@@ -196,19 +99,7 @@ class WinProbabilityModel:
     # ─────────────────────────────────────────────────────────────────────────
 
     def fit(self, innings2_df: pd.DataFrame) -> "WinProbabilityModel":
-        """
-        Fit the model from training-split second-innings delivery data.
-
-        Parameters
-        ----------
-        innings2_df : pd.DataFrame
-            Must contain: over_number, wickets_before, runs_required,
-            balls_remaining, required_run_rate, batting_team_won (bool).
-
-        Returns
-        -------
-        self
-        """
+      
         df = innings2_df.dropna(subset=[
             "over_number", "wickets_before", "runs_required",
             "balls_remaining", "required_run_rate", "batting_team_won",
@@ -245,11 +136,7 @@ class WinProbabilityModel:
         balls_remaining: float,
         required_run_rate: float,
     ) -> float:
-        """
-        Return P(batting team wins | current match state) in [0, 1].
-
-        Parameters match the columns in innings2_chase.csv.
-        """
+        
         if not self._is_fitted:
             raise RuntimeError("Call fit() before predict_proba().")
 
@@ -265,11 +152,7 @@ class WinProbabilityModel:
         return float(_sigmoid(Xb @ self._weights)[0])
 
     def predict_proba_batch(self, innings2_df: pd.DataFrame) -> np.ndarray:
-        """
-        Vectorised prediction over a DataFrame.
-
-        Returns np.ndarray of shape (N,) with probabilities in [0, 1].
-        """
+        
         if not self._is_fitted:
             raise RuntimeError("Call fit() before predict_proba_batch().")
 
@@ -291,11 +174,7 @@ class WinProbabilityModel:
     # ─────────────────────────────────────────────────────────────────────────
 
     def evaluate(self, innings2_df: pd.DataFrame) -> dict:
-        """
-        Compute binary-classification metrics on a labelled DataFrame.
-
-        Returns dict with: accuracy, log_loss, brier_score, auc_approx.
-        """
+        
         if not self._is_fitted:
             raise RuntimeError("Call fit() before evaluate().")
 
@@ -324,7 +203,6 @@ class WinProbabilityModel:
         }
 
     def coefficient_table(self) -> pd.DataFrame:
-        """Return a DataFrame of feature names and fitted coefficients."""
         if not self._is_fitted:
             raise RuntimeError("Call fit() first.")
         names = [
