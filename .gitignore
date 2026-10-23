@@ -1,10 +1,6 @@
 # Virtual environment
 .venv/
 
-# Raw and processed datasets
-data/raw/
-data/processed/
-
 # Python cache
 __pycache__/
 *.py[cod]
