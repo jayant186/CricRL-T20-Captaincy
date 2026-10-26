@@ -1,11 +1,3 @@
-"""
-tests/test_baselines.py — Milestone 4: Heuristic Baseline Tests
-================================================================
-
-Run with:
-    pytest tests/test_baselines.py -v
-"""
-
 import sys
 from pathlib import Path
 import numpy as np
@@ -23,9 +15,9 @@ from simulator import T20Simulator
 DATA = Path(__file__).resolve().parents[1] / "data" / "processed"
 
 
-# ─────────────────────────────────────────────────────────────────────────────
+
 # Fixtures
-# ─────────────────────────────────────────────────────────────────────────────
+
 
 @pytest.fixture(scope="session")
 def fitted_model():
@@ -42,9 +34,9 @@ def simulator(fitted_model):
     return T20Simulator(fitted_model, random_seed=42)
 
 
-# ─────────────────────────────────────────────────────────────────────────────
+
 # 1. Policy interface tests
-# ─────────────────────────────────────────────────────────────────────────────
+
 
 class TestPolicyInterface:
 
@@ -84,9 +76,9 @@ class TestPolicyInterface:
             simulator.step(aggression=a)
 
 
-# ─────────────────────────────────────────────────────────────────────────────
+
 # 2. RRRPolicy logic tests
-# ─────────────────────────────────────────────────────────────────────────────
+
 
 class TestRRRPolicy:
 
@@ -127,9 +119,8 @@ class TestRRRPolicy:
         assert RRRPolicy(low_thresh=4.0, high_thresh=5.0).select_action(sim) == 2
 
 
-# ─────────────────────────────────────────────────────────────────────────────
 # 3. evaluate_policy() tests
-# ─────────────────────────────────────────────────────────────────────────────
+
 
 class TestEvaluatePolicy:
 
@@ -172,16 +163,12 @@ class TestEvaluatePolicy:
         assert result["all_out_rate"] + result["overs_complete_rate"] <= 1.01
 
 
-# ─────────────────────────────────────────────────────────────────────────────
+
 # 4. Relative policy ordering tests (large-sample)
-# ─────────────────────────────────────────────────────────────────────────────
+
 
 class TestPolicyOrdering:
-    """
-    Aggressive policy should win more often than Conservative on high targets.
-    Conservative policy should maintain more wickets than Aggressive.
-    These are probabilistic statements validated with N=200 episodes.
-    """
+    
 
     N = 200
 
@@ -224,9 +211,9 @@ class TestPolicyOrdering:
         )
 
 
-# ─────────────────────────────────────────────────────────────────────────────
+
 # 5. compare_policies() tests
-# ─────────────────────────────────────────────────────────────────────────────
+
 
 class TestComparePolicies:
 
