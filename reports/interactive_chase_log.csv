@@ -1,0 +1,70 @@
+ball_num,over,bowler,bowling_tactic,score_before,event_desc,outcome_runs,score_after,runs_required,balls_remaining,rrr,batting_action,action_id,q_conservative,q_balanced,q_aggressive,is_wicket,is_wide,is_noball
+1,0.1,MJ McClenaghan,Attacking,0/6,🏃 Single (+1 run),1,1/6,99,119,4.99,Balanced,1,-0.0341,0.1384,0.0827,False,False,False
+2,0.2,MJ McClenaghan,Attacking,1/6,⚪ Dot Ball (+0 runs),0,1/6,99,118,5.03,Balanced,1,-0.0343,0.1379,0.0832,False,False,False
+3,0.3,MJ McClenaghan,Attacking,1/6,🏃 Two Runs (+2 runs),2,3/6,97,117,4.97,Balanced,1,-0.0346,0.1374,0.0836,False,False,False
+4,0.4,MJ McClenaghan,Attacking,3/6,🏃 Single (+1 run),1,4/6,96,116,4.97,Balanced,1,-0.0348,0.1368,0.0844,False,False,False
+5,0.5,MJ McClenaghan,Attacking,4/6,4️⃣ FOUR! (+4 runs),4,8/6,92,115,4.8,Balanced,1,-0.035,0.1363,0.0849,False,False,False
+6,1.0,MJ McClenaghan,Attacking,8/6,🔴 WICKET! (+0 runs),0,8/7,92,114,4.84,Balanced,1,-0.0351,0.1356,0.086,True,False,False
+7,1.1,SL Malinga,Attacking,8/7,🏃 Single (+1 run),1,9/7,91,113,4.83,Balanced,1,-0.0419,0.1327,0.0919,False,False,False
+8,1.2,SL Malinga,Attacking,9/7,6️⃣ SIX! (+6 runs),6,15/7,85,112,4.55,Balanced,1,-0.042,0.1321,0.0926,False,False,False
+9,1.3,SL Malinga,Attacking,15/7,⚪ Dot Ball (+0 runs),0,15/7,85,111,4.59,Balanced,1,-0.0418,0.1313,0.0944,False,False,False
+10,1.4,SL Malinga,Attacking,15/7,⚪ Dot Ball (+0 runs),0,15/7,85,110,4.64,Balanced,1,-0.0421,0.1308,0.0948,False,False,False
+11,1.5,SL Malinga,Attacking,15/7,6️⃣ SIX! (+6 runs),6,21/7,79,109,4.35,Balanced,1,-0.0423,0.1303,0.0952,False,False,False
+12,2.0,SL Malinga,Attacking,21/7,🏃 Single (+1 run),1,22/7,78,108,4.33,Balanced,1,-0.042,0.1294,0.097,False,False,False
+13,2.1,MJ McClenaghan,Attacking,22/7,🏃 Single (+1 run),1,23/7,77,107,4.32,Balanced,1,-0.0422,0.1288,0.0977,False,False,False
+14,2.2,MJ McClenaghan,Attacking,23/7,🏃 Single (+1 run),1,24/7,76,106,4.3,Balanced,1,-0.0423,0.1283,0.0984,False,False,False
+15,2.3,MJ McClenaghan,Attacking,24/7,⚪ Dot Ball (+0 runs),0,24/7,76,105,4.34,Balanced,1,-0.0424,0.1278,0.0991,False,False,False
+16,2.4,MJ McClenaghan,Attacking,24/7,🏃 Single (+1 run),1,25/7,75,104,4.33,Balanced,1,-0.0426,0.1274,0.0995,False,False,False
+17,2.5,MJ McClenaghan,Attacking,25/7,⚪ Dot Ball (+0 runs),0,25/7,75,103,4.37,Balanced,1,-0.0427,0.127,0.1001,False,False,False
+18,2.5 (extra),MJ McClenaghan,Attacking,25/7,🟡 WIDE (+1 extra),1,26/7,74,103,4.31,Balanced,1,-0.0429,0.1265,0.1005,False,True,False
+19,3.0,MJ McClenaghan,Attacking,26/7,🏃 Single (+1 run),1,27/7,73,102,4.29,Balanced,1,-0.0427,0.1266,0.1007,False,False,False
+20,3.1,SL Malinga,Attacking,27/7,🏃 Single (+1 run),1,28/7,72,101,4.28,Balanced,1,-0.0428,0.1262,0.1013,False,False,False
+21,3.2,SL Malinga,Attacking,28/7,⚪ Dot Ball (+0 runs),0,28/7,72,100,4.32,Balanced,1,-0.0428,0.1258,0.1019,False,False,False
+22,3.3,SL Malinga,Attacking,28/7,🏃 Single (+1 run),1,29/7,71,99,4.3,Balanced,1,-0.043,0.1253,0.1023,False,False,False
+23,3.4,SL Malinga,Attacking,29/7,🏃 Single (+1 run),1,30/7,70,98,4.29,Balanced,1,-0.0431,0.1249,0.1029,False,False,False
+24,3.5,SL Malinga,Attacking,30/7,⚪ Dot Ball (+0 runs),0,30/7,70,97,4.33,Balanced,1,-0.0431,0.1245,0.1035,False,False,False
+25,4.0,SL Malinga,Attacking,30/7,🏃 Single (+1 run),1,31/7,69,96,4.31,Balanced,1,-0.0433,0.1241,0.1038,False,False,False
+26,4.1,MJ McClenaghan,Attacking,31/7,⚪ Dot Ball (+0 runs),0,31/7,69,95,4.36,Balanced,1,-0.0433,0.1238,0.1043,False,False,False
+27,4.2,MJ McClenaghan,Attacking,31/7,🏃 Single (+1 run),1,32/7,68,94,4.34,Balanced,1,-0.0435,0.1234,0.1046,False,False,False
+28,4.3,MJ McClenaghan,Attacking,32/7,🏃 Single (+1 run),1,33/7,67,93,4.32,Balanced,1,-0.0435,0.123,0.1052,False,False,False
+29,4.4,MJ McClenaghan,Attacking,33/7,🔴 WICKET! (+0 runs),0,33/8,67,92,4.37,Balanced,1,-0.0436,0.1226,0.1057,True,False,False
+30,4.5,MJ McClenaghan,Attacking,33/8,🏃 Single (+1 run),1,34/8,66,91,4.35,Balanced,1,-0.0497,0.1178,0.1097,False,False,False
+31,5.0,MJ McClenaghan,Attacking,34/8,🏃 Single (+1 run),1,35/8,65,90,4.33,Balanced,1,-0.0496,0.1173,0.1103,False,False,False
+32,5.1,Harbhajan Singh,Attacking,35/8,🏃 Single (+1 run),1,36/8,64,89,4.31,Balanced,1,-0.0495,0.1169,0.1108,False,False,False
+33,5.2,Harbhajan Singh,Attacking,36/8,🏃 Single (+1 run),1,37/8,63,88,4.3,Balanced,1,-0.0494,0.1164,0.1113,False,False,False
+34,5.3,Harbhajan Singh,Attacking,37/8,⚪ Dot Ball (+0 runs),0,37/8,63,87,4.34,Balanced,1,-0.0493,0.1159,0.1118,False,False,False
+35,5.4,Harbhajan Singh,Attacking,37/8,🏃 Single (+1 run),1,38/8,62,86,4.33,Balanced,1,-0.0494,0.1154,0.112,False,False,False
+36,5.5,Harbhajan Singh,Attacking,38/8,🏃 Two Runs (+2 runs),2,40/8,60,85,4.24,Balanced,1,-0.0493,0.115,0.1125,False,False,False
+37,6.0,Harbhajan Singh,Attacking,40/8,⚪ Dot Ball (+0 runs),0,40/8,60,84,4.29,Balanced,1,-0.0489,0.1145,0.1132,False,False,False
+38,6.1,MJ McClenaghan,Attacking,40/8,⚪ Dot Ball (+0 runs),0,40/8,60,83,4.34,Balanced,1,-0.049,0.114,0.1134,False,False,False
+39,6.2,MJ McClenaghan,Attacking,40/8,🏃 Single (+1 run),1,41/8,59,82,4.32,Aggressive,2,-0.0491,0.1136,0.1137,False,False,False
+40,6.3,MJ McClenaghan,Attacking,41/8,🏃 Single (+1 run),1,42/8,58,81,4.3,Aggressive,2,-0.049,0.1131,0.1141,False,False,False
+41,6.4,MJ McClenaghan,Attacking,42/8,🏃 Single (+1 run),1,43/8,57,80,4.28,Aggressive,2,-0.0489,0.1126,0.1145,False,False,False
+42,6.5,MJ McClenaghan,Attacking,43/8,⚪ Dot Ball (+0 runs),0,43/8,57,79,4.33,Aggressive,2,-0.0489,0.1121,0.1149,False,False,False
+43,7.0,MJ McClenaghan,Attacking,43/8,⚪ Dot Ball (+0 runs),0,43/8,57,78,4.38,Aggressive,2,-0.0491,0.1116,0.115,False,False,False
+44,7.1,Harbhajan Singh,Attacking,43/8,⚪ Dot Ball (+0 runs),0,43/8,57,77,4.44,Aggressive,2,-0.0494,0.1111,0.1151,False,False,False
+45,7.2,Harbhajan Singh,Attacking,43/8,6️⃣ SIX! (+6 runs),6,49/8,51,76,4.03,Aggressive,2,-0.0496,0.1106,0.1152,False,False,False
+46,7.3,Harbhajan Singh,Attacking,49/8,🔴 WICKET! (+0 runs),0,49/9,51,75,4.08,Aggressive,2,-0.0488,0.1098,0.117,True,False,False
+47,7.4,Harbhajan Singh,Attacking,49/9,⚪ Dot Ball (+0 runs),0,49/9,51,74,4.14,Aggressive,2,-0.0521,0.1057,0.1218,False,False,False
+48,7.5,Harbhajan Singh,Attacking,49/9,⚪ Dot Ball (+0 runs),0,49/9,51,73,4.19,Aggressive,2,-0.0522,0.1053,0.122,False,False,False
+49,8.0,Harbhajan Singh,Attacking,49/9,🏃 Single (+1 run),1,50/9,50,72,4.17,Aggressive,2,-0.0523,0.1049,0.1222,False,False,False
+50,8.1,HH Pandya,Attacking,50/9,⚪ Dot Ball (+0 runs),0,50/9,50,71,4.23,Aggressive,2,-0.052,0.1041,0.1227,False,False,False
+51,8.2,HH Pandya,Attacking,50/9,⚪ Dot Ball (+0 runs),0,50/9,50,70,4.29,Aggressive,2,-0.052,0.1037,0.1229,False,False,False
+52,8.3,HH Pandya,Attacking,50/9,⚪ Dot Ball (+0 runs),0,50/9,50,69,4.35,Aggressive,2,-0.052,0.1032,0.1231,False,False,False
+53,8.4,HH Pandya,Attacking,50/9,🏃 Single (+1 run),1,51/9,49,68,4.32,Aggressive,2,-0.0521,0.1027,0.1233,False,False,False
+54,8.5,HH Pandya,Attacking,51/9,🏃 Single (+1 run),1,52/9,48,67,4.3,Aggressive,2,-0.0518,0.102,0.1238,False,False,False
+55,9.0,HH Pandya,Attacking,52/9,4️⃣ FOUR! (+4 runs),4,56/9,44,66,4.0,Aggressive,2,-0.0515,0.1012,0.1243,False,False,False
+56,9.1,Harbhajan Singh,Attacking,56/9,🏃 Single (+1 run),1,57/9,43,65,3.97,Aggressive,2,-0.0503,0.0995,0.1256,False,False,False
+57,9.2,Harbhajan Singh,Attacking,57/9,🏃 Two Runs (+2 runs),2,59/9,41,64,3.84,Aggressive,2,-0.0502,0.099,0.1261,False,False,False
+58,9.3,Harbhajan Singh,Attacking,59/9,⚪ Dot Ball (+0 runs),0,59/9,41,63,3.9,Aggressive,2,-0.0498,0.0982,0.1269,False,False,False
+59,9.4,Harbhajan Singh,Attacking,59/9,6️⃣ SIX! (+6 runs),6,65/9,35,62,3.39,Aggressive,2,-0.0499,0.098,0.1273,False,False,False
+60,9.5,Harbhajan Singh,Attacking,65/9,⚪ Dot Ball (+0 runs),0,65/9,35,61,3.44,Aggressive,2,-0.0486,0.0963,0.1293,False,False,False
+61,10.0,Harbhajan Singh,Attacking,65/9,🏃 Single (+1 run),1,66/9,34,60,3.4,Aggressive,2,-0.0487,0.096,0.1296,False,False,False
+62,10.1,HH Pandya,Attacking,66/9,🏃 Single (+1 run),1,67/9,33,59,3.36,Aggressive,2,-0.0486,0.0954,0.1302,False,False,False
+63,10.2,HH Pandya,Attacking,67/9,🏃 Single (+1 run),1,68/9,32,58,3.31,Aggressive,2,-0.0484,0.095,0.1308,False,False,False
+64,10.3,HH Pandya,Attacking,68/9,🏃 Single (+1 run),1,69/9,31,57,3.26,Aggressive,2,-0.0482,0.0945,0.1314,False,False,False
+65,10.4,HH Pandya,Attacking,69/9,⚪ Dot Ball (+0 runs),0,69/9,31,56,3.32,Aggressive,2,-0.0481,0.094,0.132,False,False,False
+66,10.5,HH Pandya,Attacking,69/9,⚪ Dot Ball (+0 runs),0,69/9,31,55,3.38,Aggressive,2,-0.0482,0.0938,0.1323,False,False,False
+67,11.0,HH Pandya,Attacking,69/9,4️⃣ FOUR! (+4 runs),4,73/9,27,54,3.0,Aggressive,2,-0.0484,0.0936,0.1325,False,False,False
+68,11.1,Harbhajan Singh,Attacking,73/9,🏃 Two Runs (+2 runs),2,75/9,25,53,2.83,Aggressive,2,-0.0473,0.0924,0.1337,False,False,False
+69,11.2,Harbhajan Singh,Attacking,75/9,🔴 WICKET! (+0 runs),0,75/10,25,52,2.88,Aggressive,2,-0.0467,0.0918,0.1345,True,False,False
