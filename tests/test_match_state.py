@@ -1,15 +1,3 @@
-"""
-tests/test_match_state.py — Milestone 2: Match State Tests
-===========================================================
-
-Tests for src/match_state.py:
-- state_from_delivery_row() correctness against manually computed values.
-- state_to_observation() shape, dtype, and normalization bounds.
-- Edge cases: last ball, target passed, innings 1 (no target).
-
-Run with:
-    pytest tests/test_match_state.py -v
-"""
 
 import math
 import pytest
@@ -24,9 +12,7 @@ from match_state import MatchState, state_from_delivery_row, state_to_observatio
 DATA = Path(__file__).resolve().parents[1] / "data" / "processed"
 
 
-# ─────────────────────────────────────────────────────────────────────────────
 # Fixtures
-# ─────────────────────────────────────────────────────────────────────────────
 
 @pytest.fixture(scope="session")
 def deliveries_clean():
@@ -47,17 +33,10 @@ def first_innings1_row(deliveries_clean):
     return deliveries_clean[deliveries_clean["innings"] == 1].iloc[0]
 
 
-# ─────────────────────────────────────────────────────────────────────────────
 # Known-value regression tests
-# ─────────────────────────────────────────────────────────────────────────────
 
 class TestKnownValues:
-    """
-    Regression tests against manually computed state values.
-
-    We use match 1082591 innings 2 as the reference case.
-    From the audit: innings 2 target = 208, score at ball 1 = 0.
-    """
+   
 
     def test_balls_remaining_at_start_of_innings(self, first_innings2_row):
         """At the very first ball of innings 2, legal_balls_before = 0 → 120 remaining."""
@@ -160,9 +139,7 @@ class TestManualRowDict:
             state_from_delivery_row(row)
 
 
-# ─────────────────────────────────────────────────────────────────────────────
 # state_to_observation() tests
-# ─────────────────────────────────────────────────────────────────────────────
 
 class TestStateToObservation:
     """Tests for the normalized numpy observation vector."""
@@ -243,12 +220,7 @@ class TestStateToObservation:
         assert obs[5] == 0.0   # rrr (NaN → 0)
 
     def test_feature_ordering(self):
-        """
-        Feature index ordering must be stable (changing it would break
-        saved DQN checkpoints). Verify each index maps to the right feature.
-        Index 0: current_score, 1: wickets_lost, 2: balls_remaining,
-        3: target, 4: runs_required, 5: required_run_rate.
-        """
+        
         state = MatchState(
             current_score=125,  # 125/250 = 0.5
             wickets_lost=5,     # 5/10 = 0.5
@@ -264,9 +236,7 @@ class TestStateToObservation:
             )
 
 
-# ─────────────────────────────────────────────────────────────────────────────
 # Integration test: real data round-trip
-# ─────────────────────────────────────────────────────────────────────────────
 
 class TestRealDataRoundTrip:
     """Verify state construction + observation on a sample of real rows."""
