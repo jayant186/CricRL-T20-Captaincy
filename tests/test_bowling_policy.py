@@ -1,14 +1,3 @@
-"""
-tests/test_bowling_policy.py — Comprehensive Unit & Integration Tests for Bowling Module
-========================================================================================
-
-Verifies:
-1. Bowler statistics, workload tracking, economy calculation, and maidens.
-2. Bowling squad constraints: 4-over maximum per bowler, consecutive over restriction.
-3. Captaincy policies: PhaseSpecialistCaptaincy, RiskAdaptiveCaptaincy, RoundRobinCaptaincy.
-4. Full match simulation integration: cricket correctness across legal balls, wickets, runs.
-"""
-
 import sys
 from pathlib import Path
 import pytest
@@ -65,9 +54,8 @@ def fitted_outcome_model() -> OutcomeModel:
     return OutcomeModel().fit(df)
 
 
-# ─────────────────────────────────────────────────────────────────────────────
+
 # 1. Bowler Unit Tests
-# ─────────────────────────────────────────────────────────────────────────────
 
 class TestBowler:
     def test_initial_state(self, sample_bowler: Bowler):
@@ -117,9 +105,7 @@ class TestBowler:
         assert sample_bowler.completed_overs == 1
 
 
-# ─────────────────────────────────────────────────────────────────────────────
 # 2. Bowling Squad Unit Tests
-# ─────────────────────────────────────────────────────────────────────────────
 
 class TestBowlingSquad:
     def test_squad_creation(self, csk_squad: BowlingSquad):
@@ -170,9 +156,7 @@ class TestBowlingSquad:
             assert squad.team_name == name
 
 
-# ─────────────────────────────────────────────────────────────────────────────
 # 3. Bowling Captaincy Policy Tests
-# ─────────────────────────────────────────────────────────────────────────────
 
 class TestBowlingCaptaincyPolicies:
     def test_phase_specialist_powerplay(self, csk_squad: BowlingSquad):
@@ -242,9 +226,7 @@ class TestBowlingCaptaincyPolicies:
         assert len(set(bowlers_picked)) == 5
 
 
-# ─────────────────────────────────────────────────────────────────────────────
 # 4. End-to-End Match Simulation Integration Tests
-# ─────────────────────────────────────────────────────────────────────────────
 
 class TestBowlingMatchSimulation:
     def test_full_innings_with_bowling_squad(self, fitted_outcome_model: OutcomeModel):
