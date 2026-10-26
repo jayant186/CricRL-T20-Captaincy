@@ -1,10 +1,4 @@
-"""
-tests/test_win_probability.py — Milestone 4: Win-Probability Model Tests
-=========================================================================
 
-Run with:
-    pytest tests/test_win_probability.py -v
-"""
 
 import sys
 from pathlib import Path
@@ -19,9 +13,7 @@ from win_probability import WinProbabilityModel, _build_feature_matrix, _sigmoid
 DATA = Path(__file__).resolve().parents[1] / "data" / "processed"
 
 
-# ─────────────────────────────────────────────────────────────────────────────
 # Fixtures
-# ─────────────────────────────────────────────────────────────────────────────
 
 @pytest.fixture(scope="session")
 def train_inn2_with_outcome():
@@ -52,9 +44,7 @@ def fitted_wp_model(train_inn2_with_outcome):
     return model
 
 
-# ─────────────────────────────────────────────────────────────────────────────
 # 1. Fitting tests
-# ─────────────────────────────────────────────────────────────────────────────
 
 class TestWinProbFit:
 
@@ -82,9 +72,7 @@ class TestWinProbFit:
         assert list(df.columns) == ["feature", "coefficient"]
 
 
-# ─────────────────────────────────────────────────────────────────────────────
 # 2. Prediction sanity tests
-# ─────────────────────────────────────────────────────────────────────────────
 
 class TestWinProbPrediction:
 
@@ -169,9 +157,7 @@ class TestWinProbPrediction:
             )
 
 
-# ─────────────────────────────────────────────────────────────────────────────
 # 3. Evaluation metric tests
-# ─────────────────────────────────────────────────────────────────────────────
 
 class TestWinProbEvaluation:
 
@@ -231,9 +217,7 @@ class TestWinProbEvaluation:
         )
 
 
-# ─────────────────────────────────────────────────────────────────────────────
 # 4. Helper function tests
-# ─────────────────────────────────────────────────────────────────────────────
 
 class TestHelpers:
 
