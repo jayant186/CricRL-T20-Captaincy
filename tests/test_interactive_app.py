@@ -1,14 +1,3 @@
-"""
-tests/test_interactive_app.py — Unit Tests for Interactive Chase Demo Logic
-=============================================================================
-
-Tests:
-1. Model loading and Q-value generation for interactive stepping
-2. Step-by-step match state transitions
-3. Full innings chase simulation to completion
-4. CSV decision log structure and export validation
-"""
-
 import sys
 from pathlib import Path
 import tempfile
